@@ -1,0 +1,99 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Auth {
+  id: Int!
+  email: String!
+  pword: String!
+  firstname: String!
+  lastname: String!
+  resetPasswordToken: String!
+  resetPasswordExpires: String!
+  createdAt: String!
+}
+
+type CarDetail {
+  id: Int!
+  car_Name: String!
+  plate_Number: String!
+  car_color: String!
+  date_purchase: String!
+  engine_number: String!
+  state: String!
+  image_link: String!
+  country: String!
+  createdAt: String!
+}
+
+type DriverDetail {
+  id: Int!
+  first_Name: String!
+  last_Name: String!
+  DOB: String!
+  health_status: String!
+  address: String!
+  state: String!
+  image_link: String!
+  country: String!
+  createdAt: String!
+}
+
+type Query {
+  AuthUser(input: CreateAuthInput!): [Auth!]!
+  driverDetails: [DriverDetail!]!
+  driverDetail(id: Int!): DriverDetail!
+  carDetails: [CarDetail!]!
+  carDetail(id: Int!): CarDetail!
+}
+
+input CreateAuthInput {
+  email: String!
+  firstname: String!
+  lastname: String!
+  password: String!
+}
+
+type Mutation {
+  createAuth(input: CreateAuthInput!): [Auth!]!
+  createDriverDetail(createDriverDetailInput: CreateDriverDetailInput!): DriverDetail!
+  updateDriverDetail(updateDriverDetailInput: UpdateDriverDetailInput!): DriverDetail!
+  removeDriverDetail(id: Int!): DriverDetail!
+  createCarDetail(createCarDetailInput: CreateCarDetailInput!): CarDetail!
+  updateCarDetail(updateCarDetailInput: UpdateCarDetailInput!): CarDetail!
+  removeCarDetail(id: Int!): CarDetail!
+}
+
+input CreateDriverDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateDriverDetailInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCarDetailInput {
+  car_Name: String!
+  plate_Number: String!
+  car_color: String!
+  data_purchase: String!
+  engine_number: String!
+  state: String!
+  image_linkk: String!
+  country: String!
+}
+
+input UpdateCarDetailInput {
+  car_Name: String
+  plate_Number: String
+  car_color: String
+  data_purchase: String
+  engine_number: String
+  state: String
+  image_linkk: String
+  country: String
+  id: Int!
+}
