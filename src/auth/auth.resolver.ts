@@ -1,9 +1,9 @@
 import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { CreateAuthInput } from './dto/create-auth.input';
+import { CreateAuthInput, InputAuthInput} from './dto/create-auth.input';
 import { Auth } from '../../db/entities/auth.entity'
 
-@Resolver(Auth)
+@Resolver((of)=>[Auth]!)
 export class AuthResolver {
 
     constructor(private Authservice : AuthService){}
@@ -16,11 +16,19 @@ export class AuthResolver {
 
     }
 
+    @Mutation( ()=> [Auth]!)
+    async login(@Args('input') input : InputAuthInput){
+
+      return this.Authservice.login(input)
+    }
+
+
+
 
     @Query(()=>[Auth], {name : "AuthUser"})
-    FindAll(@Args('input') input : CreateAuthInput ){
+    FindOne(@Args('input') email : string ){
 
-        return this.Authservice.findAll(input)
+        return this.Authservice.findOne(email)
 
     }
 

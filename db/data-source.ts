@@ -3,6 +3,9 @@ import { $npmConfigName1686070836021 } from './../migrations/1686070836021-$npm_
 import { $npmConfigName1686071377397 } from './../migrations/1686071377397-$npm_config_name'
 import { $npmConfigName1686074077728 } from './../migrations/1686074077728-$npm_config_name'
 import { ConfigService } from '@nestjs/config';
+import { Auth } from './entities/auth.entity';
+import { CarDetail } from './entities/car_detail.entity';
+import { DriverDetail } from './entities/driver_detail.entity';
 
 export const dataSourceOptions : DataSourceOptions = {
 
@@ -18,16 +21,15 @@ export const dataSourceOptions : DataSourceOptions = {
 
     database: 'task',
 
-    synchronize: false,
+    synchronize: true,
+    
+    entities : [Auth,CarDetail,DriverDetail],
 
-    entities : [__dirname + "/entities/*.entity.ts"],
+    migrations : [$npmConfigName1686070836021,$npmConfigName1686071377397,$npmConfigName1686074077728],
 
-    migrations : [],
-
-    migrationsTableName : 'migrations'
+    migrationsTableName : 'migrations',
     
 }
-
 
 const dataSource = new DataSource(dataSourceOptions)
 

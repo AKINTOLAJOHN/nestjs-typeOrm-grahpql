@@ -25,7 +25,28 @@ export class CreateAuthInput {
   @IsNotEmpty()
   @IsString()
   @IsStrongPassword()
-  password : string
+  pword : string
 
 
 }
+
+
+@InputType()
+export class InputAuthInput {
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  @IsEmail()
+  email : string
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  @IsStrongPassword()
+  pword : string
+
+
+}
+
+

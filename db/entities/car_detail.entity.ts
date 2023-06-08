@@ -8,7 +8,7 @@ import { DriverDetail } from './driver_detail.entity';
 export class CarDetail {
 
   @Field(type => Int)
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("increment")
   id : number
 
   @Field(type => String)

@@ -1,12 +1,13 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import {UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
+import {UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn, Column, ManyToOne, Entity} from 'typeorm'
 import { Auth } from './auth.entity';
 
 @ObjectType()
+@Entity()
 export class DriverDetail {
     
         @Field(type => Int)
-        @PrimaryGeneratedColumn('uuid')
+        @PrimaryGeneratedColumn("increment")
         id : number
 
         @Field(type => String)

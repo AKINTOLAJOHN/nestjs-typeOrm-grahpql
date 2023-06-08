@@ -2,14 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Auth {
+type DriverDetail {
   id: Int!
-  email: String!
-  pword: String!
-  firstname: String!
-  lastname: String!
-  resetPasswordToken: String!
-  resetPasswordExpires: String!
+  first_Name: String!
+  last_Name: String!
+  DOB: String!
+  health_status: String!
+  address: String!
+  state: String!
+  image_link: String!
+  country: String!
   createdAt: String!
 }
 
@@ -26,42 +28,46 @@ type CarDetail {
   createdAt: String!
 }
 
-type DriverDetail {
+type Auth {
   id: Int!
-  first_Name: String!
-  last_Name: String!
-  DOB: String!
-  health_status: String!
-  address: String!
-  state: String!
-  image_link: String!
-  country: String!
+  email: String!
+  pword: String!
+  firstname: String!
+  lastname: String!
+  resetPasswordToken: String!
+  resetPasswordExpires: String!
   createdAt: String!
 }
 
 type Query {
-  AuthUser(input: CreateAuthInput!): [Auth!]!
+  AuthUser(input: String!): [Auth!]!
   driverDetails: [DriverDetail!]!
   driverDetail(id: Int!): DriverDetail!
   carDetails: [CarDetail!]!
   carDetail(id: Int!): CarDetail!
 }
 
-input CreateAuthInput {
-  email: String!
-  firstname: String!
-  lastname: String!
-  password: String!
-}
-
 type Mutation {
   createAuth(input: CreateAuthInput!): [Auth!]!
+  login(input: InputAuthInput!): [Auth!]!
   createDriverDetail(createDriverDetailInput: CreateDriverDetailInput!): DriverDetail!
   updateDriverDetail(updateDriverDetailInput: UpdateDriverDetailInput!): DriverDetail!
   removeDriverDetail(id: Int!): DriverDetail!
   createCarDetail(createCarDetailInput: CreateCarDetailInput!): CarDetail!
   updateCarDetail(updateCarDetailInput: UpdateCarDetailInput!): CarDetail!
   removeCarDetail(id: Int!): CarDetail!
+}
+
+input CreateAuthInput {
+  email: String!
+  firstname: String!
+  lastname: String!
+  pword: String!
+}
+
+input InputAuthInput {
+  email: String!
+  pword: String!
 }
 
 input CreateDriverDetailInput {

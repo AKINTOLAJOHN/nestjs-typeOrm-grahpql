@@ -4,13 +4,18 @@ import { AuthResolver } from './auth.resolver';
 import { TypeOrmModule} from '@nestjs/typeorm'
 import { Auth } from '../../db/entities/auth.entity';
 import { CarDetail } from 'db/entities/car_detail.entity';
+import  { JwtModule } from '@nestjs/jwt'
 import { DriverDetail } from 'db/entities/driver_detail.entity';
-import { dataSourceOptions } from 'db/data-source';
 
 @Global()
 @Module({
-  imports : [
-    TypeOrmModule.forFeature([Auth,CarDetail,DriverDetail]),],
-  providers: [AuthService, AuthResolver]
+  
+  imports : [TypeOrmModule.forFeature([Auth,CarDetail,DriverDetail]),
+  JwtModule.register({
+
+    global: true,
+    
+  })],
+  providers: [AuthResolver,AuthService, ],
 })
 export class AuthModule {}

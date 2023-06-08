@@ -8,9 +8,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
-import { Auth } from '../db/entities/auth.entity';
 import {dataSourceOptions} from 'db/data-source';
-import { AuthService } from './auth/auth.service';
+import { ConfigModule } from '@nestjs/config';
+import { AuthResolver } from './auth/auth.resolver';
+
 
 @Global()
 @Module({
@@ -21,6 +22,10 @@ import { AuthService } from './auth/auth.service';
     driver : ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/graphql_schema.gql'),
   }),
+  ConfigModule.forRoot({
+    isGlobal : true
+  })
+  ,
     AuthModule, DriverDetailsModule, CarDetailsModule],
   controllers: [AppController],
   providers: [AppService],
