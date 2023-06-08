@@ -50,6 +50,7 @@ type Query {
 type Mutation {
   createAuth(input: CreateAuthInput!): [Auth!]!
   login(input: InputAuthInput!): [Auth!]!
+  passwordReset(input: UpdateAuthInput!): [Auth!]!
   createDriverDetail(createDriverDetailInput: CreateDriverDetailInput!): DriverDetail!
   updateDriverDetail(updateDriverDetailInput: UpdateDriverDetailInput!): DriverDetail!
   removeDriverDetail(id: Int!): DriverDetail!
@@ -68,6 +69,14 @@ input CreateAuthInput {
 input InputAuthInput {
   email: String!
   pword: String!
+}
+
+input UpdateAuthInput {
+  email: String
+  firstname: String
+  lastname: String
+  pword: String
+  password: String!
 }
 
 input CreateDriverDetailInput {

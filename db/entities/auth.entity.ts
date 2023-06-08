@@ -21,14 +21,6 @@ export class Auth {
   @Column()
   pword : string
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  hashPassword() {
-    if (this.pword) {
-      this.pword = hashSync(this.pword, 10);
-    }
-  }
-
   @Field(type => String)
   @Column()
   firstname : string

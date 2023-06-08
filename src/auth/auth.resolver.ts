@@ -2,6 +2,7 @@ import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { CreateAuthInput, InputAuthInput} from './dto/create-auth.input';
 import { Auth } from '../../db/entities/auth.entity'
+import { UpdateAuthInput } from './dto/update-auth.input';
 
 @Resolver((of)=>[Auth]!)
 export class AuthResolver {
@@ -20,6 +21,14 @@ export class AuthResolver {
     async login(@Args('input') input : InputAuthInput){
 
       return this.Authservice.login(input)
+
+    }
+
+    @Mutation(()=>[Auth]!)
+    async passwordReset(@Args('input') input : UpdateAuthInput){
+
+      return this.Authservice.passwordReset(input)
+
     }
 
 

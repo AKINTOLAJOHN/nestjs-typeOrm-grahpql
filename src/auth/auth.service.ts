@@ -6,13 +6,14 @@ import { Auth } from '../../db/entities/auth.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import  { JwtService } from '@nestjs/jwt'
+import { UpdateAuthInput } from './dto/update-auth.input';
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(Auth) private  AuthREposity : Repository<Auth>,
-        private jwt : JwtService,
-        private config : ConfigService
+        private readonly jwt : JwtService,
+        private readonly config : ConfigService
 
         ){}
 
@@ -38,7 +39,6 @@ export class AuthService {
 
             const app = await this.AuthREposity.save(user)
     
-    
             return user
 
 
@@ -62,11 +62,12 @@ export class AuthService {
 
         }
 
+        
         const pwMatches = await compareSync(
-
-            verify.pword, pword,
-
-        )
+            
+         pword, verify.pword
+            
+            )
 
         if (!pwMatches){
             
@@ -115,6 +116,32 @@ export class AuthService {
         return { access_token : access_token }
 
         
+    }
+
+    async passwordReset(UpdateAuthInput : UpdateAuthInput){
+
+        const { pword, email } = UpdateAuthInput;
+
+          
+        const  verify = await this.AuthREposity.findOne({where : {email : email}})
+        
+        if (verify){
+            
+            throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+            
+        }else{
+
+            let hashespassword = hashSync(pword,10)
+
+
+            const user = this.AuthREposity
+
+
+
+
+        }
+
+
     }
 
 
