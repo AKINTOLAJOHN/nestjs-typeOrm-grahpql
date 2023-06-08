@@ -14,10 +14,10 @@ export class CarDetailsService {
   @UseGuards(AuthGuard)
   create(createCarDetailInput: CreateCarDetailInput, @getUser('email', 'id') email : string, id : number) {
 
-    const user = this.carReposity.findOne({where : { id : id}})
+    const user = this.carReposity.findOne({where : {id : id}, relations : ['auth']})
 
     if(user){
-      
+
 
     }else{
 
