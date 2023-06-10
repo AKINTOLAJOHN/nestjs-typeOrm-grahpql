@@ -9,22 +9,27 @@ export class AuthResolver {
 
     constructor(private Authservice : AuthService){}
 
-    @Mutation( ()=> [Auth]!)
-    async createAuth(@Args('input') input : CreateAuthInput){
+    @Mutation( (of)=> [Auth]!)
+    async createAuth(@Args('input') input : CreateAuthInput) : Promise<Auth>{
 
-      return this.Authservice.create(input)
+      const createdAuth : Auth = await this.Authservice.create(input)
+
+      return createdAuth
   
 
     }
 
-    @Mutation( ()=> [Auth]!)
+    @Mutation( (of)=> [Auth]!)
     async login(@Args('input') input : InputAuthInput){
 
-      return this.Authservice.login(input)
+      const creatAuth = await  this.Authservice.login(input)
+
+      return  creatAuth 
+      
 
     }
 
-    @Mutation(()=>[Auth]!)
+    @Mutation((of)=>[Auth]!)
     async passwordReset(@Args('input') input : UpdateAuthInput){
 
       return this.Authservice.passwordReset(input)

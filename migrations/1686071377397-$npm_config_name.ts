@@ -13,48 +13,6 @@ export class  $npmConfigName1686071377397 implements MigrationInterface {
                 generationStrategy: 'increment',
             },
             {
-                name: 'first_Name',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'last_Name',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'DOB',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'health_status',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'address',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'state',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'country',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
                 name: 'image_link',
                 type: 'varchar',
                 length: '255',
@@ -75,7 +33,7 @@ export class  $npmConfigName1686071377397 implements MigrationInterface {
     });
 
     private foreignKey = new TableForeignKey({
-        columnNames: ['user_id'],
+        columnNames: ['id'],
         referencedColumnNames: ['id'],
         onDelete: 'CASCADE',
         referencedTableName: 'users_tb',

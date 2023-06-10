@@ -12,21 +12,21 @@ export class CarDetailsService {
   constructor(@InjectRepository(CarDetail) private readonly carReposity : Repository<CarDetail>){}
 
   @UseGuards(AuthGuard)
-  create(createCarDetailInput: CreateCarDetailInput, @getUser('email', 'id') email : string, id : number) {
+  create(createCarDetailInput: CreateCarDetailInput) {
 
-    const user = this.carReposity.findOne({where : {id : id}, relations : ['auth']})
+    // const user = this.carReposity.findOne()
 
-    if(user){
+    // if(user){
 
 
-    }else{
+    // }else{
 
-    }
+    // }
 
-    const info = this.carReposity.save(createCarDetailInput)
-    console.log(user)
+    const info = this.carReposity
+    // console.log(user)
 
-    return user
+    return info
     
 
   }

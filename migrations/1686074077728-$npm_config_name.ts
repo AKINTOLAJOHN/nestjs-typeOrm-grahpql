@@ -13,42 +13,6 @@ export class  $npmConfigName1686074077728 implements MigrationInterface {
                 generationStrategy: 'increment',
             },
             {
-                name: 'car_Name',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'plate_Number',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'car_color',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'date_purchase',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'engine_number',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
-                name: 'state',
-                type: 'varchar',
-                length: '255',
-                isNullable: false,
-            },
-            {
                 name: 'image_link',
                 type: 'varchar',
                 length: '255',
@@ -69,7 +33,7 @@ export class  $npmConfigName1686074077728 implements MigrationInterface {
     });
 
     private foreignKey = new TableForeignKey({
-        columnNames: ['user_driver_id'],
+        columnNames: ['id'],
         referencedColumnNames: ['id'],
         onDelete: 'CASCADE',
         referencedTableName: 'drivers_info_tb',

@@ -10,6 +10,7 @@ export class CarDetailsResolver {
 
   @Mutation(() => CarDetail)
   createCarDetail(@Args('createCarDetailInput') createCarDetailInput: CreateCarDetailInput) {
+    
      this.carDetailsService.create(createCarDetailInput);
 
   }

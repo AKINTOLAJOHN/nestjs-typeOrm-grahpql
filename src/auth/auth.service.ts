@@ -7,19 +7,22 @@ import { hashSync, compareSync } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import  { JwtService } from '@nestjs/jwt'
 import { UpdateAuthInput } from './dto/update-auth.input';
+import dataSource from 'db/data-source';
 
 @Injectable()
 export class AuthService {
     constructor(
+
         @InjectRepository(Auth) private  AuthREposity : Repository<Auth>,
+
         private readonly jwt : JwtService,
+        
         private readonly config : ConfigService
 
         ){}
 
-    async create(createAuthInput:CreateAuthInput){
-
-        
+    async create(createAuthInput:CreateAuthInput) {
+     
         const  verify = await this.AuthREposity.findOne({where : {email : createAuthInput.email}})
         
         if (verify){
@@ -29,17 +32,21 @@ export class AuthService {
         }else{
 
             const {email,pword,firstname,lastname} = createAuthInput
+
             let hashespassword = hashSync(pword,10)
+            
             let user = new Auth()
 
             user.email = email,
             user.pword = hashespassword
             user.lastname = lastname
             user.firstname = firstname
+            
 
-            const app = await this.AuthREposity.save(user)
-    
-            return user
+            const data = await this.AuthREposity.save(user)
+
+            return data
+
 
 
         }
@@ -94,10 +101,10 @@ export class AuthService {
 
       async signtoken(email : string, userId : number){
 
-        const secret = this.config.get('jwt_secret')
+        const secret = this.config.get('jwt_secret') || "&&*(()%$#@*^$#@%&&)"
 
 
-        const info = { 
+        const info = {  
 
             email,
 
@@ -113,7 +120,7 @@ export class AuthService {
 
         })      
 
-        return { access_token : access_token }
+        return { jwtkey : access_token }
 
         
     }

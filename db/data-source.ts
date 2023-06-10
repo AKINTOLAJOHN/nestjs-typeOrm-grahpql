@@ -13,7 +13,7 @@ export const dataSourceOptions : DataSourceOptions = {
 
     host : 'localhost',
 
-    username: 'jay',
+    username: 'john',
 
     port : 3306,
 

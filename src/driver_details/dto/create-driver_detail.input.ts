@@ -1,7 +1,12 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsString } from "class-validator"
 
 @InputType()
 export class CreateDriverDetailInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  image_linkk : string
+  
 }
