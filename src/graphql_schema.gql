@@ -26,23 +26,17 @@ type DriverDetail {
 }
 
 type Query {
-  AuthUser(input: String!): [Auth!]!
   driverDetails: [DriverDetail!]!
   driverDetail(id: Int!): DriverDetail!
-  carDetails: [CarDetail!]!
-  carDetail(id: Int!): CarDetail!
 }
 
 type Mutation {
   createAuth(input: CreateAuthInput!): [Auth!]!
-  login(input: InputAuthInput!): [Auth!]!
-  passwordReset(input: UpdateAuthInput!): [Auth!]!
+  login(login: InputAuthInput!): [Auth!]!
   createDriverDetail(createDriverDetailInput: CreateDriverDetailInput!): DriverDetail!
   updateDriverDetail(updateDriverDetailInput: UpdateDriverDetailInput!): DriverDetail!
   removeDriverDetail(id: Int!): DriverDetail!
   createCarDetail(createCarDetailInput: CreateCarDetailInput!): CarDetail!
-  updateCarDetail(updateCarDetailInput: UpdateCarDetailInput!): CarDetail!
-  removeCarDetail(id: Int!): CarDetail!
 }
 
 input CreateAuthInput {
@@ -57,28 +51,18 @@ input InputAuthInput {
   pword: String!
 }
 
-input UpdateAuthInput {
-  email: String
-  firstname: String
-  lastname: String
-  pword: String
-  password: String!
+input CreateDriverDetailInput {
+  image_linkk: Upload!
 }
 
-input CreateDriverDetailInput {
-  image_linkk: String!
-}
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input UpdateDriverDetailInput {
-  image_linkk: String
+  image_linkk: Upload
   id: Int!
 }
 
 input CreateCarDetailInput {
   image_linkk: String!
-}
-
-input UpdateCarDetailInput {
-  image_linkk: String
-  id: Int!
 }

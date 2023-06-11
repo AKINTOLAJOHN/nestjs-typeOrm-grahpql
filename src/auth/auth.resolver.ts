@@ -1,8 +1,10 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args, Context, GraphQLExecutionContext, CONTEXT } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { CreateAuthInput, InputAuthInput} from './dto/create-auth.input';
+import { AuthType, CreateAuthInput, InputAuthInput} from './dto/create-auth.input';
 import { Auth } from '../../db/entities/auth.entity'
 import { UpdateAuthInput } from './dto/update-auth.input';
+import { getUser } from 'src/decorator';
+import { Response } from 'express';
 
 @Resolver((of)=>[Auth]!)
 export class AuthResolver {
@@ -10,39 +12,29 @@ export class AuthResolver {
     constructor(private Authservice : AuthService){}
 
     @Mutation( (of)=> [Auth]!)
-    async createAuth(@Args('input') input : CreateAuthInput) : Promise<Auth>{
+    async createAuth(@Args('input') input : CreateAuthInput) {
 
       const createdAuth : Auth = await this.Authservice.create(input)
 
-      return createdAuth
+      return [createdAuth]
   
 
     }
 
-    @Mutation( (of)=> [Auth]!)
-    async login(@Args('input') input : InputAuthInput){
+    @Mutation( ()=> [Auth]!)
+    async login(
+      @Context('res') res : Response,
+      @Args('login') input : InputAuthInput,
+    ){
 
-      const creatAuth = await  this.Authservice.login(input)
+      const resp =  await this.Authservice.login(input)
 
-      return  creatAuth 
-      
+      const token = await this.Authservice.jwtToken(resp)
 
-    }
+      res.cookie("access_token",token, {httpOnly : true});   
 
-    @Mutation((of)=>[Auth]!)
-    async passwordReset(@Args('input') input : UpdateAuthInput){
+      return [resp]
 
-      return this.Authservice.passwordReset(input)
-
-    }
-
-
-
-
-    @Query(()=>[Auth], {name : "AuthUser"})
-    FindOne(@Args('input') email : string ){
-
-        return this.Authservice.findOne(email)
 
     }
 

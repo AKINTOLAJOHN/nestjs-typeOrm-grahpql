@@ -15,23 +15,4 @@ export class CarDetailsResolver {
 
   }
 
-  @Query(() => [CarDetail], { name: 'carDetails' })
-  findAll() {
-    return this.carDetailsService.findAll();
-  }
-
-  @Query(() => CarDetail, { name: 'carDetail' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.carDetailsService.findOne(id);
-  }
-
-  @Mutation(() => CarDetail)
-  updateCarDetail(@Args('updateCarDetailInput') updateCarDetailInput: UpdateCarDetailInput) {
-    return this.carDetailsService.update(updateCarDetailInput.id, updateCarDetailInput);
-  }
-
-  @Mutation(() => CarDetail)
-  removeCarDetail(@Args('id', { type: () => Int }) id: number) {
-    return this.carDetailsService.remove(id);
-  }
 }

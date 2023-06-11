@@ -1,5 +1,7 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { IsString, IsNotEmpty, IsEmail, IsStrongPassword, } from 'class-validator';
+import { Auth } from 'db/entities/auth.entity';
+import { ObjectType } from 'type-graphql';
 
 
 @InputType()
@@ -48,6 +50,17 @@ export class InputAuthInput {
   @IsStrongPassword()
   pword : string
 
+
+}
+
+
+@ObjectType()
+@InputType()
+export class AuthType{
+
+  @Field(()=> [Auth!])
+  user : Auth; 
+  token : string;
 
 }
 

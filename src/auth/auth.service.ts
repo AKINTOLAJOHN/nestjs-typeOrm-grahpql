@@ -54,13 +54,13 @@ export class AuthService {
         
     }
 
-    async login(AuthInDto : InputAuthInput){
+    async login(AuthInDto : InputAuthInput) : Promise<any>{
 
         const { pword, email } = AuthInDto;
 
-        const  verify = await this.AuthREposity.findOne({where : {email}})
+        const  user = await this.AuthREposity.findOne({where : {email}})
 
-        if(!verify){
+        if(!user){
 
             throw new ForbiddenException(
 
@@ -72,7 +72,7 @@ export class AuthService {
         
         const pwMatches = await compareSync(
             
-         pword, verify.pword
+         pword, user.pword
             
             )
 
@@ -86,70 +86,27 @@ export class AuthService {
 
         }
 
-        return this.signtoken(verify.email, verify.id)
+        const token = await this.jwtToken(user)
 
-    }
+        console.log(token)
 
-    async findOne(email : string) {
 
-        const user = this.AuthREposity.findOne({where :{email : email}})
-
+        
         return user
         
+        
+    }
+    
+
+
+    async jwtToken(user: Auth): Promise<any> {
+
+        const payload = { username: user.email, sub: user.id };
+    
+        return this.jwt.signAsync(payload,{secret : "ohn", expiresIn : 858959});
 
       }
 
-      async signtoken(email : string, userId : number){
-
-        const secret = this.config.get('jwt_secret') || "&&*(()%$#@*^$#@%&&)"
-
-
-        const info = {  
-
-            email,
-
-            userId
-
-        };
-
-        const access_token  = await this.jwt.signAsync(info, {
-
-            secret,
-
-            expiresIn : Date.now() + 1 * 24 * 60 * 1000
-
-        })      
-
-        return { jwtkey : access_token }
-
-        
-    }
-
-    async passwordReset(UpdateAuthInput : UpdateAuthInput){
-
-        const { pword, email } = UpdateAuthInput;
-
-          
-        const  verify = await this.AuthREposity.findOne({where : {email : email}})
-        
-        if (verify){
-            
-            throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
-            
-        }else{
-
-            let hashespassword = hashSync(pword,10)
-
-
-            const user = this.AuthREposity
-
-
-
-
-        }
-
-
-    }
 
 
 

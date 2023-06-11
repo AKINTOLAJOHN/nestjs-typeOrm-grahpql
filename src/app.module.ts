@@ -21,6 +21,10 @@ import { AuthResolver } from './auth/auth.resolver';
   GraphQLModule.forRoot({
     driver : ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/graphql_schema.gql'),
+    context: ({ req, res }) => ({ req, res }),
+    cors : {
+      
+    }
   }),
   ConfigModule.forRoot({
     isGlobal : true
@@ -31,3 +35,4 @@ import { AuthResolver } from './auth/auth.resolver';
   providers: [AppService],
 })
 export class AppModule {}
+
