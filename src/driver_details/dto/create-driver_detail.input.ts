@@ -13,9 +13,13 @@ export interface FileUpload {
 @InputType()
 export class CreateDriverDetailInput {
 
-  @Field(()=>GraphQLUpload)
+  @Field()
   @IsNotEmpty()
   @IsString()
-  image_linkk : Promise<FileUpload>
+  image_linkk : string
+
+  @Field(()=> Int)
+  @IsNotEmpty()
+  userId : number
   
 }

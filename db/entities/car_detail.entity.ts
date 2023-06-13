@@ -15,6 +15,14 @@ export class CarDetail {
   @Column()
   image_link : string
 
+  @Field()
+  @Column(type => String )
+  mimetype: string;
+
+  @Field()
+  @Column(type => String)
+  encoding: string;
+
   @ManyToOne(()=> Auth)
   @JoinColumn({name: 'user_cars'})
   car_owner : Auth

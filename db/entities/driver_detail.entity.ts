@@ -14,9 +14,17 @@ export class DriverDetail {
         @Column()
         image_link : string
 
+        @Field(type => String)
+        @Column()
+        mimetype: string;
+      
+        @Field(type => String)
+        @Column()
+        encoding: string;
+
         @OneToOne(() => Auth)
         @JoinColumn({name : 'user_driver'})
-        user_id : Auth 
+        user_id : Auth
 
         @Field(type => String)
         @CreateDateColumn({name: 'created_at'})

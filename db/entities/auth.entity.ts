@@ -44,5 +44,11 @@ export class Auth {
   @UpdateDateColumn({name: 'updated_at'})
   updatedAt: Date;
 
+  @OneToMany(()=> CarDetail, cars => cars.id)
+  owner : CarDetail[]
+
+  @OneToOne(()=> DriverDetail, driver => driver.user_id)
+  driver : DriverDetail
+
 
 }

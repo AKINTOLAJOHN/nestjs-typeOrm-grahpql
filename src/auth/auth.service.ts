@@ -85,12 +85,6 @@ export class AuthService {
             )
 
         }
-
-        const token = await this.jwtToken(user)
-
-        console.log(token)
-
-
         
         return user
         

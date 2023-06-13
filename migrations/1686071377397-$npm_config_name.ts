@@ -29,7 +29,20 @@ export class  $npmConfigName1686071377397 implements MigrationInterface {
                 type: 'timestamp',
                 isNullable: false,
                 default: 'now()',
-            }],
+            },
+            {
+                name: 'mimetype',
+                type: 'varchar',
+                length: '255',
+                isNullable: false,
+            },
+            {
+                name: 'encoding',
+                type: 'varchar',
+                length: '255',
+                isNullable: false,
+            }
+        ],
     });
 
     private foreignKey = new TableForeignKey({

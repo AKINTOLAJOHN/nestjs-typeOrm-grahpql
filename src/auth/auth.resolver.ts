@@ -12,7 +12,7 @@ export class AuthResolver {
     constructor(private Authservice : AuthService){}
 
     @Mutation( (of)=> [Auth]!)
-    async createAuth(@Args('input') input : CreateAuthInput) {
+    async createAuth(@Args('input') input : CreateAuthInput){
 
       const createdAuth : Auth = await this.Authservice.create(input)
 
