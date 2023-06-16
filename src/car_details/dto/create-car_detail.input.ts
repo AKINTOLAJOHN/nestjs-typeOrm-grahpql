@@ -1,19 +1,17 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { IsString, IsNotEmpty, IsEmail, IsStrongPassword } from 'class-validator';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+
 import { Readable } from 'stream';
+
 
 @InputType()
 export class CreateCarDetailInput {
 
-  @Field()
+  @Field(()=>GraphQLUpload)
   @IsNotEmpty()
   @IsString()
-  image_linkk : string
-
-  @Field(()=> Int)
-  @IsNotEmpty()
-  userId : number
+  image  : Promise<FileUpload>
 
 }
 

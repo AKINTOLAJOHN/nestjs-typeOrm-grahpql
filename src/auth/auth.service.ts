@@ -54,9 +54,7 @@ export class AuthService {
         
     }
 
-    async login(AuthInDto : InputAuthInput) : Promise<any>{
-
-        const { pword, email } = AuthInDto;
+    async login(email : string, pword : string) : Promise<any>{
 
         const  user = await this.AuthREposity.findOne({where : {email}})
 
@@ -86,7 +84,7 @@ export class AuthService {
 
         }
         
-        return user
+        return this.jwtToken(user)
         
         
     }
@@ -95,9 +93,13 @@ export class AuthService {
 
     async jwtToken(user: Auth): Promise<any> {
 
+        const secret =  this.config.get('jwt_secret') || "&&*(()%$#@*^$#@%&&)"
+
+        console.log(secret)
+
         const payload = { username: user.email, sub: user.id };
     
-        return this.jwt.signAsync(payload,{secret : "ohn", expiresIn : 858959});
+        return this.jwt.signAsync(payload,{secret : secret , expiresIn : 858959});
 
       }
 

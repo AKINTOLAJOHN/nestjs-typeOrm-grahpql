@@ -1,11 +1,11 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import {UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn, Column, ManyToOne, Entity, OneToOne, JoinTable, JoinColumn} from 'typeorm'
+import {UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn, Column, ManyToOne, Entity, OneToOne, JoinColumn} from 'typeorm'
 import { Auth } from './auth.entity';
 
 @ObjectType()
 @Entity()
 export class DriverDetail {
-    
+        
         @Field(type => Int)
         @PrimaryGeneratedColumn("increment")
         id : number
@@ -32,6 +32,5 @@ export class DriverDetail {
       
         @UpdateDateColumn({name: 'updated_at'})
         updatedAt: Date;
-
 
 }

@@ -21,21 +21,16 @@ export class AuthResolver {
 
     }
 
-    @Mutation( ()=> [Auth]!)
+    @Mutation( ()=> String)
     async login(
-      @Context('res') res : Response,
-      @Args('login') input : InputAuthInput,
-    ){
+      @Args('email') email: string,
+      @Args('pword') pword: string,
+    ) : Promise<string>{
 
-      const resp =  await this.Authservice.login(input)
+      const resp =  await this.Authservice.login(email,pword)
 
-      const token = await this.Authservice.jwtToken(resp)
-
-      res.cookie("access_token",token, {httpOnly : true});   
-
-      return [resp]
-
-
+      return  resp
+      
     }
 
 }

@@ -9,6 +9,6 @@ import { AuthService } from 'src/auth/auth.service';
 
 @Module({
   imports : [TypeOrmModule.forFeature([Auth,CarDetail,DriverDetail])],
-  providers: [AuthService,CarDetailsResolver, CarDetailsService]
+  providers: [AuthService,CarDetailsResolver, CarDetailsService,]
 })
 export class CarDetailsModule {}

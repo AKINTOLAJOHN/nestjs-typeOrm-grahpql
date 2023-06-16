@@ -10,11 +10,7 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import {dataSourceOptions} from 'db/data-source';
 import { ConfigModule } from '@nestjs/config';
-import { AuthResolver } from './auth/auth.resolver';
-import { CloudinaryModule } from 'nestjs-cloudinary';
-import { ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
-import { ServeStaticModule } from '@nestjs/serve-static';
 
 
 @Global()
@@ -24,14 +20,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
   ),
   MulterModule.register({
     dest: './../src/upload',
-  }),
-  ServeStaticModule.forRoot({
-    rootPath: join(__dirname, './../src/', 'upload')
+    storage : './../src/upload'
   }),
   GraphQLModule.forRoot({
     driver : ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/graphql_schema.gql'),
-    context: ({ req, res }) => ({ req, res }),
   }),
   ConfigModule.forRoot({
     isGlobal : true

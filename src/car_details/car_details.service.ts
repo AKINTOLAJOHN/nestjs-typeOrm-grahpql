@@ -1,34 +1,39 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateCarDetailInput } from './dto/create-car_detail.input';
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CarDetail } from 'db/entities/car_detail.entity';
-import { AuthGuard } from 'src/guard';
-import { getUser } from 'src/decorator';
-import { AuthService } from 'src/auth/auth.service';
 import { Auth } from 'db/entities/auth.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import * as fs from 'fs';
 
 @Injectable()
 export class CarDetailsService {
-  constructor(@InjectRepository(CarDetail) private readonly carReposity : Repository<CarDetail>,
+  constructor(
+    @InjectRepository(CarDetail) private readonly carReposity : Repository<CarDetail>,
   @InjectRepository(Auth) private readonly authReposity : Repository<Auth>
   ){}
 
-  @UseGuards(AuthGuard)
-  async create(result,file,createDriverDetailInput){
+  
+  @UseInterceptors(FileInterceptor('image'))
+  async create(createDriverDetailInput : CreateCarDetailInput,username : string,@UploadedFile() file: Express.Multer.File){
 
-   const {image_link, userId} = createDriverDetailInput
 
     let item = new CarDetail()
 
-    let jam = await this.authReposity.findOne({where : { id : createDriverDetailInput}})
+    let jam = await this.authReposity.findOne({where : { email : username}})
+
+    const uniqueFilename = `${Date.now()}-${file.originalname}`;
+
+    fs.writeFileSync(`/../../src/upload/${uniqueFilename}`, file.buffer);
     
-    // item.image_link = image_linkk
+    item.image_link = uniqueFilename
+    
     item.car_owner = jam
 
-   const data = await this.carReposity.save(item)
+   await this.carReposity.save(item)
 
-   return data   
+   return 'upload successful'   
 
   }
 
